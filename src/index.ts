@@ -6,8 +6,8 @@ import { Logger } from './utilities'
 
 const app = express();
 
-app.get('/', (req, res) => res.status(200).send("API can be found from path /all"));
-app.get('/all', (req, res) => HandleGETAllRequest(req, res));
+app.get('/api', (req, res) => res.status(200).send("API can be found from path /api/all"));
+app.get('/api/all', (req, res) => HandleGETAllRequest(req, res));
 
 app.listen(PORT, () => {
   Logger(`⚡️ Server is running at https://localhost:${PORT}`);
