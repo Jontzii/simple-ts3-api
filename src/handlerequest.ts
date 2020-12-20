@@ -10,15 +10,16 @@ import * as teamspeak from './ts_query'
 const HandleGETAllRequest = (req: express.Request, res: express.Response) => {
   if (!req.accepts('application/json')) res.sendStatus(406);
 
-  teamspeak.GetLatestTeamspeakData()
+  teamspeak.GetLatestCleanTeamspeakData()
   .then(data => {
     if (data == null) res.sendStatus(500);
 
     // Set header
     res.header("Content-Type",'application/json');
 
-    if (typeof(req.query.indent) === "string" && req.query.indent.toLowerCase() === "true") res.status(200).send(JSON.stringify(data, null, 2))
-    else res.status(200).json(data).end();
+    // Send JSON
+    if (typeof(req.query.indent) === "string" && req.query.indent.toLowerCase() === "true") res.status(200).send(JSON.stringify(data, null, 2));
+    else res.status(200).send(JSON.stringify(data));
   })
 }
 
