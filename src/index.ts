@@ -1,11 +1,10 @@
 import express from 'express'
 import * as teamspeak from './ts_query'
 import { HandleGETAllRequest } from './handlerequest'
-import { INTERVAL } from './env_utilities'
+import { INTERVAL, PORT } from './env_utilities'
 import { Logger } from './utilities'
 
 const app = express();
-const PORT = 8000;
 
 app.get('/', (req, res) => res.status(200).send("API can be found from path /all"));
 app.get('/all', (req, res) => HandleGETAllRequest(req, res));
