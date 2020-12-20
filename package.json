@@ -1,0 +1,41 @@
+{
+  "name": "simple-ts3-api",
+  "version": "1.0.0",
+  "description": "Simple API for checking who's online on a TeamSpeak 3 server currently.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "nodemon": "nodemon --watch src/**/*.ts --ignore src/**/*.spec.ts --exec ts-node src/index.ts",
+    "start": "ts-node src/index.ts",
+    "lint": "eslint . --ext .ts",
+    "test": "mocha --exit --timeout 10000 -r ts-node/register src/test/**/*.spec.ts",
+    "coverage": "nyc npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jontzii/simple-ts3-api.git"
+  },
+  "author": "Joonas Hiltunen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Jontzii/simple-ts3-api/issues"
+  },
+  "homepage": "https://github.com/Jontzii/simple-ts3-api#readme",
+  "devDependencies": {
+    "@types/chai": "^4.2.14",
+    "@types/mocha": "^8.2.0",
+    "@types/node": "^14.14.14",
+    "@typescript-eslint/eslint-plugin": "^4.10.0",
+    "@typescript-eslint/parser": "^4.10.0",
+    "chai": "^4.2.0",
+    "dotenv": "^8.2.0",
+    "eslint": "^7.16.0",
+    "mocha": "^8.2.1",
+    "nodemon": "^2.0.6",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
+  },
+  "dependencies": {
+    "ts3-nodejs-library": "^3.2.0"
+  }
+}
