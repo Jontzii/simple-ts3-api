@@ -63,8 +63,10 @@ const CreateTeamspeakData = (): Promise<types.TeamspeakData> => {
     .then((teamspeak) => { 
       AddChannelData(teamspeak)
       .then(channels => AddClientData(teamspeak, channels))
-      .then(dataWithClients => { 
+      .then(async dataWithClients => { 
         TeamspeakData.channels = dataWithClients;
+
+        await CloseTeamspeakConnection();
         resolve(TeamspeakData);
       })
     })
