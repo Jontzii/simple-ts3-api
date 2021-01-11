@@ -12,4 +12,4 @@ COPY . .
 
 RUN npm run build
 
-CMD [ "pm2-runtime", "query_production.config.js" ]
+CMD [ "pm2-runtime", "production.config.js" ]
