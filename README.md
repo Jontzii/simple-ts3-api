@@ -35,5 +35,5 @@ The API returns an object containing list of channels. Each channel contains an 
 |clientOutputMuted|Boolean|Client has output muted|
 |clientInputHardware|Boolean|Client has input hardware connected|
 |clientOutputHardware|Boolean|Client has output hardware connected|
-|clientIsRecording|Boolean|Client is currently recorded|
+|clientIsRecording|Boolean|Client is currently recording|
 |clientServergroups|Array[String]|An array containing IDs of the client's server groups|
