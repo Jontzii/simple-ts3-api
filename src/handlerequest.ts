@@ -46,7 +46,7 @@ const GetAll = (req: express.Request, res: express.Response) => {
 const GetChannel = (req: express.Request, res: express.Response) => {
   if (!req.accepts('application/json')) res.sendStatus(406);
 
-  if (req.params.channelId) {
+  if (req.params.id) {
     teamspeak.GetLatestCleanTeamspeakData()
     .then(data => {
       if (data == null) res.sendStatus(500);
@@ -66,7 +66,29 @@ const GetChannel = (req: express.Request, res: express.Response) => {
   }
 }
 
+/**
+ * Get one client.
+ * 
+ * @param req Express requests
+ * @param res Express response
+ */
+const GetClient = (req: express.Request, res: express.Response) => {
+  return res.sendStatus(501);
+}
+
+/**
+ * Get all connected clients.
+ * 
+ * @param req Express requests
+ * @param res Express response
+ */
+const GetClients = (req: express.Request, res: express.Response) => {
+  return res.sendStatus(501);
+}
+
 export {
   GetAll,
-  GetChannel
+  GetChannel,
+  GetClient,
+  GetClients
 }
