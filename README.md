@@ -8,6 +8,12 @@ The API needs .env file or the variables can be set manually.
 
 Run with `docker run -d --name simple-ts3-api -p 80:80 --env-file .env --restart unless-stopped jontzii/simple-ts3-api:latest`.
 
+## Consuming
+
+Currently the API has 2 endpoints implemented: /api/channels and /api/channels/:id.
+
+The previously used endpoints /api and /api/all now redirect to /api/channels with status 301.
+
 ## Data model
 
 The API returns an object containing list of channels. Each channel contains an array of clients connected to that channel.
