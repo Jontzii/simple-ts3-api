@@ -9,6 +9,7 @@ interface TeamspeakChannelsClean {
 }
 
 interface ChannelDataClean {
+  createdAt?: Date | undefined,
   cid: string,
   channelName: string | undefined,
   clients: ClientDataClean[]
