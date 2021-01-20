@@ -1,5 +1,5 @@
 import * as express from 'express' 
-import * as teamspeak from './ts_query'
+import * as teamspeak from './data'
 
 /**
  * Send JSON with correct indentation.
@@ -30,7 +30,7 @@ const SendJson = (req: express.Request, res: express.Response, data: any) => {
 const GetAll = (req: express.Request, res: express.Response) => {
   if (!req.accepts('application/json')) res.sendStatus(406);
 
-  teamspeak.GetLatestCleanTeamspeakData()
+  teamspeak.GetLatestCleanChannels()
   .then(data => {
     if (data == null) res.sendStatus(500);
     else SendJson(req, res, data);
@@ -46,12 +46,12 @@ const GetAll = (req: express.Request, res: express.Response) => {
 const GetChannel = (req: express.Request, res: express.Response) => {
   if (!req.accepts('application/json')) res.sendStatus(406);
 
-  if (req.params.channelId) {
-    teamspeak.GetLatestCleanTeamspeakData()
+  if (req.params.id) {
+    teamspeak.GetLatestCleanChannels()
     .then(data => {
       if (data == null) res.sendStatus(500);
       else {
-        const found = data.channels.find(element => element.cid === req.params.channelId);
+        const found = data.channels.find(channel => channel.cid === req.params.id);
         
         if (found) {
           found.createdAt = data.createdAt;
@@ -66,7 +66,54 @@ const GetChannel = (req: express.Request, res: express.Response) => {
   }
 }
 
+/**
+ * Get one client.
+ * 
+ * @param req Express requests
+ * @param res Express response
+ */
+const GetClient = (req: express.Request, res: express.Response) => {
+  if (!req.accepts('application/json')) res.sendStatus(406);
+
+  if (req.params.id) {
+    teamspeak.GetLatestCleanClients()
+    .then(data => {
+      if (data == null) res.sendStatus(500);
+      else {
+        const found = data.clients.find(client => client.clid === req.params.id);
+        
+        if (found) {
+          found.createdAt = data.createdAt;
+          SendJson(req, res, found);
+        }
+        else res.sendStatus(404);
+      }
+    })
+  }
+  else {
+    res.sendStatus(400);
+  }
+}
+
+/**
+ * Get all connected clients.
+ * 
+ * @param req Express requests
+ * @param res Express response
+ */
+const GetClients = (req: express.Request, res: express.Response) => {
+  if (!req.accepts('application/json')) res.sendStatus(406);
+
+  teamspeak.GetLatestCleanClients()
+  .then(data => {
+    if (data == null) res.sendStatus(500);
+    else SendJson(req, res, data);
+  })
+}
+
 export {
   GetAll,
-  GetChannel
+  GetChannel,
+  GetClient,
+  GetClients
 }

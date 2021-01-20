@@ -1,5 +1,5 @@
 import express from 'express'
-import * as teamspeak from './ts_query'
+import * as teamspeak from './data'
 import * as handler from './handlerequest'
 import { INTERVAL, PORT } from './env_utilities'
 import { Logger } from './utilities'
@@ -19,7 +19,9 @@ app.delete('/api/*', (req, res) => res.sendStatus(405));
 app.get('/api', (req, res) => res.redirect('/api/channels', 301));
 app.get('/api/all', (req, res) => res.redirect('/api/channels', 301));
 app.get('/api/channels', (req, res) => handler.GetAll(req, res));
-app.get('/api/channels/:channelId', (req, res) => handler.GetChannel(req, res));
+app.get('/api/channels/:id', (req, res) => handler.GetChannel(req, res));
+app.get('/api/clients', (req, res) => handler.GetClients(req, res));
+app.get('/api/clients/:id', (req, res) => handler.GetClient(req, res));
 
 app.listen(PORT, () => {
   Logger(`⚡️ Server is running at https://localhost:${PORT}`);

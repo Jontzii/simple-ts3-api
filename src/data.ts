@@ -1,13 +1,15 @@
-import { TeamspeakChannels, TeamspeakChannelsClean, ChannelDataClean } from './models/teamspeak_model'
+import * as models from './models/teamspeak_model'
 import { CreateTeamspeakData } from './ts_utilities'
 import { Logger } from './utilities';
 
 // Main data
-let LatestStatus: TeamspeakChannels | null = null;
-let LatestClean: TeamspeakChannelsClean | null = null;
+let LatestChannels: models.TeamspeakChannels | null = null;
+let LatestChannelsClean: models.TeamspeakChannelsClean | null = null;
+let LatestClientsClean: models.TeamspeakClientsClean | null = null;
 
-const GetLatestTeamspeakData = async () => { return LatestStatus }
-const GetLatestCleanTeamspeakData = async () => { return LatestClean }
+const GetLatestChannels = async () => { return LatestChannels }
+const GetLatestCleanChannels = async () => { return LatestChannelsClean }
+const GetLatestCleanClients = async () => { return LatestClientsClean }
 
 /**
  * Gets latest data from ts server.
@@ -15,8 +17,9 @@ const GetLatestCleanTeamspeakData = async () => { return LatestClean }
 const RefreshTeamspeakData = () => { 
   CreateTeamspeakData()
   .then(data => { 
-    LatestStatus = data;
+    LatestChannels = data;
     MakeCleanVersion();
+    ExtractClientsFromData();
   })
   .catch(err => Logger(err)) 
 }
@@ -25,13 +28,13 @@ const RefreshTeamspeakData = () => {
  * Cleans ts data to be suitable for public API.
  */
 const MakeCleanVersion = () => {
-  const clean: TeamspeakChannelsClean = {
+  const clean: models.TeamspeakChannelsClean = {
     createdAt: new Date(),
     channels: []
   }
 
-  LatestStatus?.channels.forEach(channel => {
-    const channelClean: ChannelDataClean = {
+  LatestChannels?.channels.forEach(channel => {
+    const channelClean: models.ChannelDataClean = {
       cid: channel.cid,
       channelName: channel.channelInfo?.channelName,
       clients: []
@@ -53,11 +56,30 @@ const MakeCleanVersion = () => {
     clean.channels.push(channelClean);
   })
 
-  LatestClean = clean;
+  LatestChannelsClean = clean;
+}
+
+/**
+ * Creates LatestClientsClean from LatestChannelsClean.
+ */
+const ExtractClientsFromData = () => {
+  if (LatestChannelsClean != null) {
+    LatestClientsClean = {
+      createdAt: LatestChannelsClean.createdAt,
+      clients: []
+    }
+    
+    LatestChannelsClean?.channels.forEach(channel => {
+      channel.clients.forEach(client => {
+        LatestClientsClean?.clients.push(client);
+      })
+    })
+  }
 }
 
 export {
-  GetLatestTeamspeakData,
-  GetLatestCleanTeamspeakData,
+  GetLatestChannels,
+  GetLatestCleanChannels,
+  GetLatestCleanClients,
   RefreshTeamspeakData
 }

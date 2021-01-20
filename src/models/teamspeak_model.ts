@@ -8,6 +8,11 @@ interface TeamspeakChannelsClean {
   channels: ChannelDataClean[]
 }
 
+interface TeamspeakClientsClean {
+  createdAt: Date,
+  clients: ClientDataClean[]
+}
+
 interface ChannelDataClean {
   createdAt?: Date | undefined,
   cid: string,
@@ -16,6 +21,7 @@ interface ChannelDataClean {
 }
 
 interface ClientDataClean {
+  createdAt?: Date | undefined,
   clid: string,
   clientNickname: string | undefined,
   clientInputMuted: number | undefined,
@@ -54,6 +60,7 @@ interface ClientData {
 export {
   TeamspeakChannelsClean,
   TeamspeakChannels,
+  TeamspeakClientsClean,
   ChannelData,
   ChannelDataClean,
   ClientData,
