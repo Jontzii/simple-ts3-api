@@ -51,7 +51,7 @@ const GetChannel = (req: express.Request, res: express.Response) => {
     .then(data => {
       if (data == null) res.sendStatus(500);
       else {
-        const found = data.channels.find(element => element.cid === req.params.channelId);
+        const found = data.channels.find(channel => channel.cid === req.params.id);
         
         if (found) {
           found.createdAt = data.createdAt;
@@ -73,7 +73,26 @@ const GetChannel = (req: express.Request, res: express.Response) => {
  * @param res Express response
  */
 const GetClient = (req: express.Request, res: express.Response) => {
-  return res.sendStatus(501);
+  if (!req.accepts('application/json')) res.sendStatus(406);
+
+  if (req.params.id) {
+    teamspeak.GetLatestCleanClients()
+    .then(data => {
+      if (data == null) res.sendStatus(500);
+      else {
+        const found = data.clients.find(client => client.clid === req.params.id);
+        
+        if (found) {
+          found.createdAt = data.createdAt;
+          SendJson(req, res, found);
+        }
+        else res.sendStatus(404);
+      }
+    })
+  }
+  else {
+    res.sendStatus(400);
+  }
 }
 
 /**
