@@ -1,13 +1,25 @@
 import express from 'express'
 import * as teamspeak from './ts_query'
-import { HandleGETAllRequest } from './handlerequest'
+import * as handler from './handlerequest'
 import { INTERVAL, PORT } from './env_utilities'
 import { Logger } from './utilities'
 
 const app = express();
 
-app.get('/api', (req, res) => res.status(200).send("API can be found from path /api/all"));
-app.get('/api/all', (req, res) => HandleGETAllRequest(req, res));
+/**
+ * Methods not allowed
+ */
+app.post('/api/*', (req, res) => res.sendStatus(405));
+app.put('/api/*', (req, res) => res.sendStatus(405));
+app.delete('/api/*', (req, res) => res.sendStatus(405));
+
+/**
+ * Routes
+ */
+app.get('/api', (req, res) => res.redirect('/api/channels', 301));
+app.get('/api/all', (req, res) => res.redirect('/api/channels', 301));
+app.get('/api/channels', (req, res) => handler.GetAll(req, res));
+app.get('/api/channels/:channelId', (req, res) => handler.GetChannel(req, res));
 
 app.listen(PORT, () => {
   Logger(`⚡️ Server is running at https://localhost:${PORT}`);
