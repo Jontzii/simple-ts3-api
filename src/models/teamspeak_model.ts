@@ -3,7 +3,7 @@ import { ClientInfo, ChannelInfo } from 'ts3-nodejs-library/lib/types/ResponseTy
 /**
  * Stripped version to send with API
  */
-interface TeamspeakDataClean {
+interface TeamspeakChannelsClean {
   createdAt: Date,
   channels: ChannelDataClean[]
 }
@@ -28,7 +28,7 @@ interface ClientDataClean {
 /**
  * Data to export
  */
-interface TeamspeakData {
+interface TeamspeakChannels {
   createdAt: Date,
   channels: ChannelData[]
 }
@@ -51,8 +51,8 @@ interface ClientData {
 }
 
 export {
-  TeamspeakDataClean,
-  TeamspeakData,
+  TeamspeakChannelsClean,
+  TeamspeakChannels,
   ChannelData,
   ChannelDataClean,
   ClientData,

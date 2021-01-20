@@ -11,5 +11,5 @@ export enum loggingTypes {
   error
 }
 
-export { TeamspeakData, ChannelData, ClientData, ClientInfo } from './models/teamspeak_model'
+export { TeamspeakChannels, ChannelData, ClientData, ClientInfo } from './models/teamspeak_model'
 export { TSConnectionInfo } from './models/connection_model'
