@@ -2,7 +2,7 @@ import * as ts3 from 'ts3-nodejs-library';
 import * as types from './types'
 import { Logger } from './utilities'
 import { TSInfo } from './env_utilities'
-import { TeamspeakData, ChannelData, ClientData } from './models/teamspeak_model';
+import { TeamspeakChannels, ChannelData, ClientData } from './models/teamspeak_model';
 
 let teamspeakQuery: ts3.TeamSpeak | null;
 
@@ -49,12 +49,12 @@ const ConnectToTeamspeak = (TSInfo: types.TSConnectionInfo): Promise<ts3.TeamSpe
  * 
  * @returns {Promise}
  */
-const CreateTeamspeakData = (): Promise<types.TeamspeakData> => {
+const CreateTeamspeakData = (): Promise<types.TeamspeakChannels> => {
   return new Promise((resolve, reject) => {
     if (teamspeakQuery) Logger(`Updating TeamspeakData`);
     else Logger(`Creating TeamspeakData`);
 
-    const TeamspeakData: TeamspeakData = {
+    const TeamspeakData: TeamspeakChannels = {
       createdAt: new Date(),
       channels: []
     };

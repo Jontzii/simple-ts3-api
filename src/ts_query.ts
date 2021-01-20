@@ -1,13 +1,17 @@
-import { TeamspeakData, TeamspeakDataClean, ChannelDataClean } from './models/teamspeak_model'
+import { TeamspeakChannels, TeamspeakChannelsClean, ChannelDataClean } from './models/teamspeak_model'
 import { CreateTeamspeakData } from './ts_utilities'
 import { Logger } from './utilities';
 
-let LatestStatus: TeamspeakData | null = null;
-let LatestClean: TeamspeakDataClean | null = null;
+// Main data
+let LatestStatus: TeamspeakChannels | null = null;
+let LatestClean: TeamspeakChannelsClean | null = null;
 
 const GetLatestTeamspeakData = async () => { return LatestStatus }
 const GetLatestCleanTeamspeakData = async () => { return LatestClean }
 
+/**
+ * Gets latest data from ts server.
+ */
 const RefreshTeamspeakData = () => { 
   CreateTeamspeakData()
   .then(data => { 
@@ -17,8 +21,11 @@ const RefreshTeamspeakData = () => {
   .catch(err => Logger(err)) 
 }
 
+/**
+ * Cleans ts data to be suitable for public API.
+ */
 const MakeCleanVersion = () => {
-  const clean: TeamspeakDataClean = {
+  const clean: TeamspeakChannelsClean = {
     createdAt: new Date(),
     channels: []
   }
