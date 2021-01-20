@@ -1,5 +1,5 @@
 import * as express from 'express' 
-import * as teamspeak from './ts_query'
+import * as teamspeak from './data'
 
 /**
  * Send JSON with correct indentation.
@@ -30,7 +30,7 @@ const SendJson = (req: express.Request, res: express.Response, data: any) => {
 const GetAll = (req: express.Request, res: express.Response) => {
   if (!req.accepts('application/json')) res.sendStatus(406);
 
-  teamspeak.GetLatestCleanTeamspeakData()
+  teamspeak.GetLatestCleanChannels()
   .then(data => {
     if (data == null) res.sendStatus(500);
     else SendJson(req, res, data);
@@ -47,7 +47,7 @@ const GetChannel = (req: express.Request, res: express.Response) => {
   if (!req.accepts('application/json')) res.sendStatus(406);
 
   if (req.params.id) {
-    teamspeak.GetLatestCleanTeamspeakData()
+    teamspeak.GetLatestCleanChannels()
     .then(data => {
       if (data == null) res.sendStatus(500);
       else {
@@ -83,7 +83,13 @@ const GetClient = (req: express.Request, res: express.Response) => {
  * @param res Express response
  */
 const GetClients = (req: express.Request, res: express.Response) => {
-  return res.sendStatus(501);
+  if (!req.accepts('application/json')) res.sendStatus(406);
+
+  teamspeak.GetLatestCleanClients()
+  .then(data => {
+    if (data == null) res.sendStatus(500);
+    else SendJson(req, res, data);
+  })
 }
 
 export {

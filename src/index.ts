@@ -1,5 +1,5 @@
 import express from 'express'
-import * as teamspeak from './ts_query'
+import * as teamspeak from './data'
 import * as handler from './handlerequest'
 import { INTERVAL, PORT } from './env_utilities'
 import { Logger } from './utilities'

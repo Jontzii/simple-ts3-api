@@ -21,6 +21,7 @@ interface ChannelDataClean {
 }
 
 interface ClientDataClean {
+  createdAt?: Date | undefined,
   clid: string,
   clientNickname: string | undefined,
   clientInputMuted: number | undefined,
