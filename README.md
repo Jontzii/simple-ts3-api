@@ -10,9 +10,9 @@ Run with `docker run -d --name simple-ts3-api -p 80:80 --env-file .env --restart
 
 ## Consuming the API
 
-Currently the API has 2 endpoints implemented: /api/channels and /api/channels/:id.
+Currently the API has 4 endpoints implemented: /api/channels, /api/channels/:id, /api/clients and /api/clients/:id.
 
-The previously used endpoints /api and /api/all now redirect to /api/channels with status 301.
+The previously used endpoints /api and /api/all now redirect to /api/channels with HTTP status 301.
 
 ## Data model
 
