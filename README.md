@@ -8,7 +8,7 @@ The API needs .env file or the variables can be set manually.
 
 Run with `docker run -d --name simple-ts3-api -p 80:80 --env-file .env --restart unless-stopped jontzii/simple-ts3-api:latest`.
 
-## Consuming
+## Consuming the API
 
 Currently the API has 2 endpoints implemented: /api/channels and /api/channels/:id.
 
