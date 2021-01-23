@@ -7,13 +7,6 @@ import { Logger } from './utilities'
 const app = express();
 
 /**
- * Methods not allowed
- */
-app.post('/api/*', (req, res) => res.sendStatus(405));
-app.put('/api/*', (req, res) => res.sendStatus(405));
-app.delete('/api/*', (req, res) => res.sendStatus(405));
-
-/**
  * Routes
  */
 app.get('/api', (req, res) => res.redirect('/api/channels', 301));
@@ -22,6 +15,13 @@ app.get('/api/channels', (req, res) => handler.GetAll(req, res));
 app.get('/api/channels/:id', (req, res) => handler.GetChannel(req, res));
 app.get('/api/clients', (req, res) => handler.GetClients(req, res));
 app.get('/api/clients/:id', (req, res) => handler.GetClient(req, res));
+
+/**
+ * Methods not allowed
+ */
+app.all('/api*', (req, res) => {
+  if (req.method !== "GET") res.sendStatus(405);
+})
 
 app.listen(PORT, () => {
   Logger(`⚡️ Server is running at https://localhost:${PORT}`);
