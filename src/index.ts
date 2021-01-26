@@ -9,17 +9,20 @@ const app = express();
 /**
  * Routes
  */
-app.get('/api', (req, res) => res.redirect('/api/channels', 301));
-app.get('/api/all', (req, res) => res.redirect('/api/channels', 301));
-app.get('/api/channels', (req, res) => handler.GetAll(req, res));
-app.get('/api/channels/:id', (req, res) => handler.GetChannel(req, res));
-app.get('/api/clients', (req, res) => handler.GetClients(req, res));
-app.get('/api/clients/:id', (req, res) => handler.GetClient(req, res));
+app.get('/teamspeak/v1/channels', (req, res) => handler.GetAll(req, res));
+app.get('/teamspeak/v1/channels/:id', (req, res) => handler.GetChannel(req, res));
+app.get('/teamspeak/v1/clients', (req, res) => handler.GetClients(req, res));
+app.get('/teamspeak/v1/clients/:id', (req, res) => handler.GetClient(req, res));
+app.get('/teamspeak', (req, res) => res.status(200).send('<p>TeamSpeak API can be found from <code>/teamspeak/v1/</code></p>'));
+app.get('/teamspeak/v1', (req, res) => res.status(200).send('<p>Available routes:</p> <ul><li>/channels/:id</li><li>/clients/:id</li></ul>'));
+
+// Catch everything else and send 404
+app.get('*', (req, res) => res.sendStatus(404));
 
 /**
  * Methods not allowed
  */
-app.all('/api*', (req, res) => {
+app.all('/teamspeak*', (req, res) => {
   if (req.method !== "GET") res.sendStatus(405);
 })
 
