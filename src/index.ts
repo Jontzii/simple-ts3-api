@@ -9,6 +9,12 @@ const app = express();
 /**
  * Routes
  */
+app.get('*', (req, res, next) => {
+  Logger(`Request: ${req.method}; Path: ${req.originalUrl}`)
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
+
 app.get('/teamspeak/v1/channels', (req, res) => handler.GetAll(req, res));
 app.get('/teamspeak/v1/channels/:id', (req, res) => handler.GetChannel(req, res));
 app.get('/teamspeak/v1/clients', (req, res) => handler.GetClients(req, res));
