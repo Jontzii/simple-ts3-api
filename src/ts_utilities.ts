@@ -20,17 +20,17 @@ const CloseTeamspeakConnection = async () => {
 /**
  * Connects to the TeamSpeak 3 server specified with environment variables.
  * 
- * @param TSInfo Connection information read from environment
+ * @param ConnectionInfo Connection information read from environment
  * @returns {Promise} Promise object containing the data
  */
-const ConnectToTeamspeak = (TSInfo: types.TSConnectionInfo): Promise<ts3.TeamSpeak> => {
+const ConnectToTeamspeak = (ConnectionInfo: types.TSConnectionInfo): Promise<ts3.TeamSpeak> => {
   return new Promise<ts3.TeamSpeak>(async (resolve, reject) => {
     if (teamspeakQuery) {
       Logger(`Connection to the Teamspeak server already active`)
       resolve(teamspeakQuery)
     }
     else {
-      ts3.TeamSpeak.connect(await CreateConnectionParams(TSInfo))
+      ts3.TeamSpeak.connect(await CreateConnectionParams(ConnectionInfo))
       .then(ts => {
         Logger(`Successfully connected to the Teamspeak server`)
         teamspeakQuery = ts;
@@ -145,18 +145,18 @@ const AddClientData = (teamspeak: ts3.TeamSpeak, channels: ChannelData[]): Promi
 /**
  * Creates ConnectionParams.
  * 
- * @param TSInfo Info for connection
+ * @param ConnectionInfo Info for connection
  * @returns {Promise} Promise containing the params
  */
-const CreateConnectionParams = (TSInfo: types.TSConnectionInfo): Promise<ts3.ConnectionParams> => {
+const CreateConnectionParams = (ConnectionInfo: types.TSConnectionInfo): Promise<ts3.ConnectionParams> => {
   return new Promise((resolve) => {
     const params: ts3.ConnectionParams = {
-      host: TSInfo.Hostname,
+      host: ConnectionInfo.Hostname,
       protocol: ts3.QueryProtocol.RAW,
-      queryport: TSInfo.QueryPort,
-      serverport: TSInfo.Port,
-      username: TSInfo.Username,
-      password: TSInfo.Password,
+      queryport: ConnectionInfo.QueryPort,
+      serverport: ConnectionInfo.Port,
+      username: ConnectionInfo.Username,
+      password: ConnectionInfo.Password,
       keepAlive: true,
       readyTimeout: 10000,
       keepAliveTimeout: 250,

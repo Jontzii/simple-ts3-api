@@ -14,22 +14,22 @@ interface TeamspeakClientsClean {
 }
 
 interface ChannelDataClean {
-  createdAt?: Date | undefined,
+  createdAt?: Date,
   cid: string,
-  channelName: string | undefined,
+  channelName?: string,
   clients: ClientDataClean[]
 }
 
 interface ClientDataClean {
-  createdAt?: Date | undefined,
+  createdAt?: Date,
   clid: string,
-  clientNickname: string | undefined,
-  clientInputMuted: number | undefined,
-  clientOutputMuted: number | undefined,
-  clientInputHardware: number | undefined,
-  clientOutputHardware: number | undefined,
-  clientIsRecording: boolean | undefined,
-  clientServergroups: string[] | undefined
+  clientNickname?: string,
+  clientInputMuted?: number,
+  clientOutputMuted?: number,
+  clientInputHardware?: number,
+  clientOutputHardware?: number,
+  clientIsRecording?: boolean,
+  clientServergroups?: string[]
 }
 
 /**
