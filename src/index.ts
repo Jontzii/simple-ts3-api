@@ -5,6 +5,7 @@ import { INTERVAL, PORT } from './env_utilities'
 import { Logger } from './utilities'
 
 const app = express();
+app.disable('x-powered-by');
 
 /**
  * Routes
