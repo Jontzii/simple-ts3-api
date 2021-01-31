@@ -6,7 +6,7 @@ Simple API for checking who's online on a TeamSpeak 3 server currently.
 
 The API needs .env file or the variables can be set manually.
 
-Run with `docker run -d --name simple-ts3-api -p 80:80 --env-file .env --restart unless-stopped jontzii/simple-ts3-api:latest`.
+Run with `docker run -d --name simple-ts3-api -p 80:8080 --env-file .env jontzii/simple-ts3-api:latest`.
 
 ## Consuming the API
 
