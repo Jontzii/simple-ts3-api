@@ -1,11 +1,11 @@
 import * as models from './models/teamspeak_model'
 import { CreateTeamspeakData } from './ts_utilities'
-import { Logger } from './utilities';
+import { Logger } from './utilities'
 
 // Main data
-let LatestChannels: models.TeamspeakChannels | null = null;
-let LatestChannelsClean: models.TeamspeakChannelsClean | null = null;
-let LatestClientsClean: models.TeamspeakClientsClean | null = null;
+let LatestChannels: models.TeamspeakChannels | null = null
+let LatestChannelsClean: models.TeamspeakChannelsClean | null = null
+let LatestClientsClean: models.TeamspeakClientsClean | null = null
 
 const GetLatestChannels = async () => { return LatestChannels }
 const GetLatestCleanChannels = async () => { return LatestChannelsClean }
@@ -14,14 +14,14 @@ const GetLatestCleanClients = async () => { return LatestClientsClean }
 /**
  * Gets latest data from ts server.
  */
-const RefreshTeamspeakData = () => { 
+const RefreshTeamspeakData = () => {
   CreateTeamspeakData()
-  .then(data => { 
-    LatestChannels = data;
-    MakeCleanVersion();
-    ExtractClientsFromData();
-  })
-  .catch(err => Logger(err)) 
+    .then(data => {
+      LatestChannels = data
+      MakeCleanVersion()
+      ExtractClientsFromData()
+    })
+    .catch(err => Logger(err))
 }
 
 /**
@@ -51,12 +51,12 @@ const MakeCleanVersion = () => {
         clientIsRecording: client.clientInfo?.clientIsRecording,
         clientServergroups: client.clientInfo?.clientServergroups
       }
-      channelClean.clients.push(clientClean);
+      channelClean.clients.push(clientClean)
     })
-    clean.channels.push(channelClean);
+    clean.channels.push(channelClean)
   })
 
-  LatestChannelsClean = clean;
+  LatestChannelsClean = clean
 }
 
 /**
@@ -68,10 +68,10 @@ const ExtractClientsFromData = () => {
       createdAt: LatestChannelsClean.createdAt,
       clients: []
     }
-    
+
     LatestChannelsClean?.channels.forEach(channel => {
       channel.clients.forEach(client => {
-        LatestClientsClean?.clients.push(client);
+        LatestClientsClean?.clients.push(client)
       })
     })
   }

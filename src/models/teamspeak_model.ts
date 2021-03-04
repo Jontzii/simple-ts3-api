@@ -1,23 +1,11 @@
 import { ClientInfo, ChannelInfo } from 'ts3-nodejs-library/lib/types/ResponseTypes'
 
 /**
- * Stripped version to send with API
+ * ClientData format
  */
-interface TeamspeakChannelsClean {
-  createdAt: Date,
-  channels: ChannelDataClean[]
-}
-
-interface TeamspeakClientsClean {
-  createdAt: Date,
-  clients: ClientDataClean[]
-}
-
-interface ChannelDataClean {
-  createdAt?: Date,
-  cid: string,
-  channelName?: string,
-  clients: ClientDataClean[]
+ interface ClientData {
+  clid: string,
+  clientInfo?: ClientInfo
 }
 
 interface ClientDataClean {
@@ -32,29 +20,41 @@ interface ClientDataClean {
   clientServergroups?: string[]
 }
 
+interface ChannelDataClean {
+  createdAt?: Date,
+  cid: string,
+  channelName?: string,
+  clients: ClientDataClean[]
+}
+
 /**
- * Data to export
+ * Stripped version to send with API
  */
-interface TeamspeakChannels {
+interface TeamspeakChannelsClean {
   createdAt: Date,
-  channels: ChannelData[]
+  channels: ChannelDataClean[]
+}
+
+interface TeamspeakClientsClean {
+  createdAt: Date,
+  clients: ClientDataClean[]
 }
 
 /**
  * ClientData format for database
  */
-interface ChannelData {
+ interface ChannelData {
   cid: string,
   channelInfo?: ChannelInfo,
   clients?: ClientData[]
 }
 
 /**
- * ClientData format
+ * Data to export
  */
-interface ClientData {
-  clid: string,
-  clientInfo?: ClientInfo
+interface TeamspeakChannels {
+  createdAt: Date,
+  channels: ChannelData[]
 }
 
 export {

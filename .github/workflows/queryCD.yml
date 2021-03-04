@@ -27,6 +27,9 @@ jobs:
               npm ci 
               npm install typescript -g
 
+      - name: Run eslint
+        run: npm run lint
+
       - name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
