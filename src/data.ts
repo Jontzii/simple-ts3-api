@@ -1,5 +1,6 @@
 import * as models from './models/teamspeak_model'
 import { CreateTeamspeakData } from './ts_utilities'
+import { loggingTypes } from './types'
 import { Logger } from './utilities'
 
 // Main data
@@ -21,7 +22,12 @@ const RefreshTeamspeakData = () => {
       MakeCleanVersion()
       ExtractClientsFromData()
     })
-    .catch(err => Logger(err))
+    .catch(err => {
+      LatestChannels = null
+      LatestChannelsClean = null
+      LatestClientsClean = null
+      Logger(err.message, loggingTypes.error)
+    })
 }
 
 /**
