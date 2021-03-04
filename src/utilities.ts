@@ -11,8 +11,10 @@ const Logger = (data: string | Error, type = loggingTypes.info): void => {
     if (typeof (data) === 'string') {
       if (type === loggingTypes.info) {
         console.info(new Date().toISOString() + ': (info) ' + data)
-      } else {
+      } else if (type === loggingTypes.warning) {
         console.warn(new Date().toISOString() + ': (warning) ' + data)
+      } else {
+        console.error(new Date().toISOString() + ': (error) ' + data)
       }
     } else {
       const message: string = data.name + ', ' + data.message + ' ' + data.stack
