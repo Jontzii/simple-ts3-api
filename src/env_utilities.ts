@@ -16,12 +16,12 @@ const TSInfo: TSConnectionInfo = {
 /**
  * Query interval in seconds
  */
-const INTERVAL: number = parseInt(process.env.QUERY_INTERVAL || '10');
+const INTERVAL: number = parseInt(process.env.QUERY_INTERVAL || '10')
 
 /**
  * Port to use
  */
-const PORT: number = parseInt(process.env.PORT || '80');
+const PORT: number = parseInt(process.env.PORT || '80')
 
 export {
   TSInfo,
