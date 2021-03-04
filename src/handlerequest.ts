@@ -101,7 +101,7 @@ const GetClients = (req: express.Request, res: express.Response) => {
 
   teamspeak.GetLatestCleanClients()
     .then(data => {
-      if (data == null) res.sendStatus(500)
+      if (data == null) res.sendStatus(503)
       else SendJson(req, res, data)
     })
 }
